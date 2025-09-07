@@ -10,6 +10,7 @@ const Login = ({ setAuth }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const togglePassword = () => setShowPassword((prev) => !prev);
 
@@ -34,12 +35,15 @@ const Login = ({ setAuth }) => {
     e.preventDefault();
     if (!validate()) return;
 
+    setLoading(true);
+
     axios
       .post(`${API_BASE_URL}/auth/login`, formData)
       .then(() => setAuth(true))
       .catch((err) =>
         setErrors({ form: err.response?.data?.message || "Login failed" })
-      );
+      )
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -76,8 +80,8 @@ const Login = ({ setAuth }) => {
           )}
         </div>
 
-        <button type="submit" className="submit-button">
-          Login
+        <button type="submit" className="submit-button" disabled={loading}>
+          {loading ? <div className="spinner"></div> : "Login"}
         </button>
         {errors.form && <div className="form-error">{errors.form}</div>}
         <p className="text-small">

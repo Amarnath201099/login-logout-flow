@@ -6,8 +6,8 @@ A **full-stack authentication system** with login, registration, session handlin
 
 ## 🔗 Live Demo
 
-- **Frontend (Vercel):** [https://klickks-frontend.vercel.app](https://klickks-frontend.vercel.app)
-- **Backend (Render):** [https://klickks-backend.onrender.com](https://klickks-backend.onrender.com)
+- **Frontend (Vercel):** [https://klickks-frontend.vercel.app](https://login-logout-flow-rouge.vercel.app/login)
+- **Backend (Render):** [https://klickks-backend.onrender.com](https://login-logout-flow-sxl4.onrender.com)
 
 ---
 

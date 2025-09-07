@@ -16,6 +16,7 @@ const Register = () => {
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const togglePassword = () => setShowPassword((prev) => !prev);
   const toggleConfirm = () => setShowConfirm((prev) => !prev);
@@ -48,6 +49,8 @@ const Register = () => {
     e.preventDefault();
     if (!validate()) return;
 
+    setLoading(true);
+
     axios
       .post(`${API_BASE_URL}/auth/register`, {
         email: formData.email,
@@ -62,7 +65,8 @@ const Register = () => {
         setErrors({
           form: err.response?.data?.message || "Registration failed",
         })
-      );
+      )
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -116,8 +120,8 @@ const Register = () => {
           )}
         </div>
 
-        <button type="submit" className="submit-button">
-          Sign Up
+        <button type="submit" className="submit-button" disabled={loading}>
+          {loading ? "Signing up..." : "Sign Up"}
         </button>
         {errors.form && <div className="form-error">{errors.form}</div>}
         <p className="text-small">
